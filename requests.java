@@ -30,7 +30,7 @@ public class requests {
 	public String helper(String key[][],String url)
 	{
 		String finalURL = url+"?";
-		for(Sting row[]:key)
+		for(String row[]:key)
 		{
 			finalURL=finalURL+row[0]+"="+row[1]+"&";
 		}
