@@ -39,7 +39,7 @@ public class requests {
             finalURL=finalURL.substring(0, finalURL.length()-1);
             return finalURL;
         }
-        private void get(String key[][], String urlStart) throws Exception{
+        public void get(String key[][], String urlStart) throws Exception{
 
             URL url = new URL(helper(key,urlStart));
             HttpURLConnection con = (HttpURLConnection)url.openConnection();
