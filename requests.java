@@ -27,13 +27,14 @@ public class requests {
 		System.out.println("Testing send");
 		http.send();
 	}
-	public String helper(String key[][])
+	public String helper(String key[][],String url)
 	{
-		String finalURL = "url?";
+		String finalURL = url+"?";
 		for(Sting row[]:key)
 		{
 			finalURL=finalURL+row[0]+"="+row[1]+"&";
 		}
+		finalURL=finalURL.substring(0, finalURL.length()-1);
 		return finalURL;
 	}
 	private void get() throws Exception{
