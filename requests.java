@@ -27,6 +27,15 @@ public class requests {
 		System.out.println("Testing send");
 		http.send();
 	}
+	public String helper(String key[][])
+	{
+		String finalURL = "url?";
+		for(Sting row[]:key)
+		{
+			finalURL=finalURL+row[0]+"="+row[1]+"&";
+		}
+		return finalURL;
+	}
 	private void get() throws Exception{
 
 
