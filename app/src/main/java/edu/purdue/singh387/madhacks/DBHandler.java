@@ -69,7 +69,7 @@ public class DBHandler {
 		} catch(Exception e){
 			System.out.println("Error In Post Request.");
 		}
-		name = findName(name, "Hari");
+		name = findName(name, "Shrehit");
 
 		return name;
 
@@ -78,89 +78,97 @@ public class DBHandler {
 		String firstName = null;
 		String lastName = null;
 
-		if (name.equals("Chris")){
+		if (name.equals("Chris")) {
 			firstName = "Jason";
-			lastName  = "Argonaut";
-		else if (name.equals("Hari")){
-			firstName = "Emily";
-			lastName = "Williams";
-		} else if (name.equals("Shrehit")){
-			firstName = "James";
-			lastName = "Kirk";
-		// } else if (name.equals("Karina")){
-		// 	firstName = "James";
-		// 	lastName = "Kirk";
-		} else {
-			firstName = "Waffles";
-			lastName = "Ragsdale";
+			lastName = "Argonaut";
 		}
+		else if (name.equals("Hari")) {
+				firstName = "Emily";
+				lastName = "Williams";
+			} else if (name.equals("Shrehit")) {
+				firstName = "James";
+				lastName = "Kirk";
+				// } else if (name.equals("Karina")){
+				// 	firstName = "Waffles";
+				// 	lastName = "Ragsdale";
+			} else {
+				firstName = "Waffles";
+				lastName = "Ragsdale";
+			}
 
-		//	Specify get parameters
-		String params2[][] = new String[][]{
-			{"given",firstName},
-			{"family", lastName}
+			//	Specify get parameters
+			String params2[][] = new String[][]{
+					{"given", firstName},
+					{"family", lastName}
 			};
 
-		String ID = null;
-		//	Create classifications:
-		requests r = new requests();
-		try {
-			ID = r.get(params2, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Patient");
-		} catch(Exception e){
-			System.out.println("Error In Post Request.");
-		}
-		ID = findID(ID);
-		// System.out.println(ID);
-		
-		String salientData = null;
-
-		String params3[][] = new String[][]{{"patient",ID}};
-		try {
-			salientData = r.get(params3, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/AllergyIntolerance");
-		} catch(Exception e){
-			System.out.println("Error In Get Request.");
-		}
-
-		testing t = new testing();
-
-		ArrayList<String> parsedData = new ArrayList<String>();
-		parsedData.add("ALLERGIES:");
-
-		for (int i = 0; i < t.stringFinder3(salientData).size(); i++){
-			if (!(t.stringFinder3(salientData).get(i).equals("Have a comment"))){
-				parsedData.add(t.stringFinder3(salientData).get(i));
+			String ID = null;
+			//	Create classifications:
+			requests r = new requests();
+			try {
+				ID = r.get(params2, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Patient");
+			} catch (Exception e) {
+				System.out.println("Error In Post Request.");
 			}
-		}
-		// parsedData.add(t.stringFinder3(salientData));
+			ID = findID(ID);
+			// System.out.println(ID);
 
-		// try {
-		// 	salientData = r.get(params3, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/MedicationOrder");
-		// } catch(Exception e){
-		// 	System.out.println("Error In Get Request.");
-		// }
+			String salientData = null;
 
-		// if (!(t.stringFinder3(salientData).get(0).equals("Resource request returns no results."))){
-		// 	parsedData.add("MEDITCATIONS:");
-		// 	for (int i = 0; i < t.stringFinder3(salientData).size(); i++){
-		// 		parsedData.add(t.stringFinder3(salientData).get(i));
-		// 	}
-		// }
+			String params3[][] = new String[][]{{"patient", ID}};
+			try {
+				salientData = r.get(params3, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/AllergyIntolerance");
+			} catch (Exception e) {
+				System.out.println("Error In Get Request.");
+			}
 
-		try {
-			salientData = r.get(params3, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Condition");
-		} catch(Exception e){
-			System.out.println("Error In Get Request.");
-		}
-		if (!(t.stringFinder3(salientData).get(0).equals("Resource request returns no results."))){
-			parsedData.add("CONDITIONS:");
-			for (int i = 0; i < t.stringFinder3(salientData).size(); i++){
-				parsedData.add(t.stringFinder3(salientData).get(i));
+			testing t = new testing();
+
+			ArrayList<String> parsedData = new ArrayList<String>();
+
+		if (!(t.stringFinder3(salientData).get(0).equals("Resource request returns no results."))) {
+			parsedData.add("ALLERGIES:");
+
+			for (int i = 0; i < t.stringFinder3(salientData).size(); i++) {
+				if (!(t.stringFinder3(salientData).get(i).equals("Have a comment"))) {
+					parsedData.add(t.stringFinder3(salientData).get(i));
+				}
 			}
 		}
 
-		for (int i = 0; i < parsedData.size(); i++){
-			System.out.println(parsedData.get(i));
-		}
+			// parsedData.add(t.stringFinder3(salientData));
+
+			// try {
+			// 	salientData = r.get(params3, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/MedicationOrder");
+			// } catch(Exception e){
+			// 	System.out.println("Error In Get Request.");
+			// }
+
+			// if (!(t.stringFinder3(salientData).get(0).equals("Resource request returns no results."))){
+			// 	parsedData.add("MEDITCATIONS:");
+			// 	for (int i = 0; i < t.stringFinder3(salientData).size(); i++){
+			// 		parsedData.add(t.stringFinder3(salientData).get(i));
+			// 	}
+			// }
+
+			try {
+				salientData = r.get(params3, "https://open-ic.epic.com/FHIR/api/FHIR/DSTU2/Condition");
+			} catch (Exception e) {
+				System.out.println("Error In Get Request.");
+			}
+			if (!(t.stringFinder3(salientData).get(0).equals("Resource request returns no results."))) {
+				parsedData.add("CONDITIONS:");
+				for (int i = 0; i < t.stringFinder3(salientData).size(); i++) {
+					parsedData.add(t.stringFinder3(salientData).get(i));
+				}
+			}
+
+			for (int i = 0; i < parsedData.size(); i++) {
+				System.out.println(parsedData.get(i));
+			}
+			if (parsedData.size() == 0){
+				parsedData.add("Good to go.");
+			}
 		return parsedData;
 	}
 
