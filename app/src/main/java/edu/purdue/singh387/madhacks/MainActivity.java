@@ -3,6 +3,7 @@ package edu.purdue.singh387.madhacks;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.ImageFormat;
 import android.graphics.SurfaceTexture;
@@ -80,6 +81,8 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takePicture();
+                Intent myIntent = new Intent(MainActivity.this, TextInput.class);
+                startActivity(myIntent);
             }
         });
     }
@@ -306,6 +309,7 @@ public class MainActivity extends AppCompatActivity {
             imageReader = null;
         }
     }
+
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
