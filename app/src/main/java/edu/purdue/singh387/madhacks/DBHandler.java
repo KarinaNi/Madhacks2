@@ -1,22 +1,21 @@
-<<<<<<< HEAD
 package edu.purdue.singh387.madhacks;
 import java.io.*;
 import java.util.*;
 
 public class DBHandler {
 	public DBHandler(){}
-=======
-import java.io.*;
-import requests.requests;
-import java.util.*;
+//=======
+//import java.io.*;
+//import requests.requests;
+//import java.util.*;
 
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+//import java.util.regex.Matcher;
+//import java.util.regex.Pattern;
 
-import tester2.testing;
+//import tester2.testing;
 
-public class DBHandler {
->>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
+//public class DBHandler {
+//>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 	private String WatsonKey = null;
 	public static void main(String[] args){
 		DBHandler db = new DBHandler();
@@ -27,7 +26,7 @@ public class DBHandler {
 	}
 
 	public void loadKey(){
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		/*try {
 =======
 		try {
@@ -49,16 +48,18 @@ public class DBHandler {
 	}
 
 	public ArrayList<String> returnInfo(String filename){
-=======
-		}
+//=======
+		loadKey();
+		return findMedicalInfo(classifyPhoto(filename));
+//		}
 	}
-
+/*
 	public String returnInfo(String filename){
 >>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 		//	Load the Watson API key
 		loadKey();
 		return findMedicalInfo(classifyPhoto(filename));
-	}
+	}*/
 
 	public String classifyPhoto(String filename){
 		//	Specify post parameters
@@ -81,11 +82,11 @@ public class DBHandler {
 		return name;
 
 	}
-<<<<<<< HEAD
+//<<<<<<< HEAD
 	public ArrayList<String> findMedicalInfo(String name){
-=======
-	public String findMedicalInfo(String name){
->>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
+//=======
+//	public String findMedicalInfo(String name){
+//>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 		String firstName = null;
 		String lastName = null;
 
@@ -170,11 +171,11 @@ public class DBHandler {
 			System.out.println(parsedData.get(i));
 		}
 
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		return parsedData;
-=======
-		return salientData;
->>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
+//=======
+//		return salientData;
+//>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 	}
 
 	public static String findName(String s) {
