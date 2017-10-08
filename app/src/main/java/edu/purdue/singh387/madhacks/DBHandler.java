@@ -6,6 +6,7 @@ public class DBHandler {
 	public DBHandler(){}
 	private String WatsonKey = null;
 	private String WatsonKey2 = null;
+	private String WatsonKey3 = null;
 	public static void main(String[] args){
 		DBHandler db = new DBHandler();
 		db.returnInfo("20171007_220733.jpg");
@@ -15,6 +16,7 @@ public class DBHandler {
 	public void loadKey(){
 		WatsonKey = "4681c8c52739fba90f6b6266093c3228a7b0fde8";
 		WatsonKey2 = "f0d276084588faceb4cf5735156d43c9767aebba";
+		WatsonKey3 = "6b45a92a603ffb162fd5d12e0ba18cc89e6ac90d";
 	}
 
 	public ArrayList<String> returnInfo(String filename){
@@ -49,7 +51,21 @@ public class DBHandler {
 
 		requests r2 = new requests();
 		try {
-			name = r2.send(params2, "https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify", filename);
+			name = r2.send(params3, "https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify", filename);
+		} catch(Exception e){
+			System.out.println("Error In Post Request.");
+		}
+		name = findName(name, "Hari");
+		if (name.equals("Hari")) return name;
+
+		String params4[][] = new String[][]{
+			{"version","2016-05-20"},
+			{"owners", "[\"me\",\"IBM\"]"},
+			{"api_key", WatsonKey3}
+			};
+		requests r3 = new requests();
+		try {
+			name = r3.send(params4, "https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify", filename);
 		} catch(Exception e){
 			System.out.println("Error In Post Request.");
 		}
@@ -68,10 +84,9 @@ public class DBHandler {
 		else if (name.equals("Hari")){
 			firstName = "Emily";
 			lastName = "Williams";
-		}
-		// } else if (name.equals("Hari")){
-		// 	firstName = "Emily";
-		// 	lastName = "Williams";
+		} else if (name.equals("Shrehit")){
+			firstName = "James";
+			lastName = "Kirk";
 		// } else if (name.equals("Karina")){
 		// 	firstName = "James";
 		// 	lastName = "Kirk";
