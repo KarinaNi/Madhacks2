@@ -64,7 +64,9 @@ public class MainActivity extends AppCompatActivity {
     private Size imageDimension;
     private ImageReader imageReader;
     private File file;
+    public static ArrayList<String> arraylist;
     private static final int REQUEST_CAMERA_PERMISSION = 200;
+    protected DBHandler x = new DBHandler();
     private boolean mFlashSupported;
     private Handler mBackgroundHandler;
     private HandlerThread mBackgroundThread;
@@ -81,8 +83,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 takePicture();
-                Intent myIntent = new Intent(MainActivity.this, TextInput.class);
-                startActivity(myIntent);
             }
         });
     }
@@ -137,6 +137,9 @@ public class MainActivity extends AppCompatActivity {
         mBackgroundThread.start();
         mBackgroundHandler = new Handler(mBackgroundThread.getLooper());
     }
+    public ArrayList<String> getArraylist(){
+        return arraylist;
+    }
     @SuppressLint("NewApi")
     protected void stopBackgroundThread() {
         mBackgroundThread.quitSafely();
@@ -163,10 +166,12 @@ public class MainActivity extends AppCompatActivity {
             }
             int width = 640;
             int height = 480;
-            if (jpegSizes != null && 0 < jpegSizes.length) {
+//            int width = 1280;
+//            int height = 960;
+     /*       if (jpegSizes != null && 0 < jpegSizes.length) {
                 width = jpegSizes[0].getWidth();
                 height = jpegSizes[0].getHeight();
-            }
+            }*/
             ImageReader reader = ImageReader.newInstance(width, height, ImageFormat.JPEG, 1);
             List<Surface> outputSurfaces = new ArrayList<Surface>(2);
             outputSurfaces.add(reader.getSurface());
@@ -192,13 +197,15 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     } catch (IOException e) {
                         e.printStackTrace();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
                     } finally {
                         if (image != null) {
                             image.close();
                         }
                     }
                 }
-                private void save(byte[] bytes) throws IOException {
+                private void save(byte[] bytes) throws IOException, InterruptedException {
                     OutputStream output = null;
                     try {
                         output = new FileOutputStream(file);
@@ -206,6 +213,17 @@ public class MainActivity extends AppCompatActivity {
                     } finally {
                         if (null != output) {
                             output.close();
+                            Thread t = new Thread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    arraylist = x.returnInfo(file.getAbsolutePath());
+                                }});
+
+                            t.start(); // spawn thread
+
+                            t.join();
+                            Intent myIntent = new Intent(MainActivity.this, TextInput.class);
+                            startActivity(myIntent);
                         }
                     }
                 }
@@ -235,6 +253,9 @@ public class MainActivity extends AppCompatActivity {
         } catch (CameraAccessException e) {
             e.printStackTrace();
         }
+    }
+    public ArrayList<String> getArrayList(){
+        return arraylist;
     }
     @SuppressLint("NewApi")
     protected void createCameraPreview() {
@@ -309,7 +330,6 @@ public class MainActivity extends AppCompatActivity {
             imageReader = null;
         }
     }
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if (requestCode == REQUEST_CAMERA_PERMISSION) {
