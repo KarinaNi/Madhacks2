@@ -1,9 +1,22 @@
+<<<<<<< HEAD
 package edu.purdue.singh387.madhacks;
 import java.io.*;
 import java.util.*;
 
 public class DBHandler {
 	public DBHandler(){}
+=======
+import java.io.*;
+import requests.requests;
+import java.util.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import tester2.testing;
+
+public class DBHandler {
+>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 	private String WatsonKey = null;
 	public static void main(String[] args){
 		DBHandler db = new DBHandler();
@@ -14,7 +27,11 @@ public class DBHandler {
 	}
 
 	public void loadKey(){
+<<<<<<< HEAD
 		/*try {
+=======
+		try {
+>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 			FileReader fileReader = new FileReader("KEYFILE.txt");
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
 			WatsonKey = bufferedReader.readLine();
@@ -26,11 +43,18 @@ public class DBHandler {
 		} catch (IOException ex){
 			System.out.println("Key missing");
 			System.exit(1);
+<<<<<<< HEAD
 		}*/
 		WatsonKey = "4681c8c52739fba90f6b6266093c3228a7b0fde8";
 	}
 
 	public ArrayList<String> returnInfo(String filename){
+=======
+		}
+	}
+
+	public String returnInfo(String filename){
+>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 		//	Load the Watson API key
 		loadKey();
 		return findMedicalInfo(classifyPhoto(filename));
@@ -57,7 +81,11 @@ public class DBHandler {
 		return name;
 
 	}
+<<<<<<< HEAD
 	public ArrayList<String> findMedicalInfo(String name){
+=======
+	public String findMedicalInfo(String name){
+>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 		String firstName = null;
 		String lastName = null;
 
@@ -142,7 +170,11 @@ public class DBHandler {
 			System.out.println(parsedData.get(i));
 		}
 
+<<<<<<< HEAD
 		return parsedData;
+=======
+		return salientData;
+>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 	}
 
 	public static String findName(String s) {
