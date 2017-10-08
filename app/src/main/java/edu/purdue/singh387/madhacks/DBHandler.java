@@ -4,62 +4,23 @@ import java.util.*;
 
 public class DBHandler {
 	public DBHandler(){}
-//=======
-//import java.io.*;
-//import requests.requests;
-//import java.util.*;
-
-//import java.util.regex.Matcher;
-//import java.util.regex.Pattern;
-
-//import tester2.testing;
-
-//public class DBHandler {
-//>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 	private String WatsonKey = null;
+	private String WatsonKey2 = null;
 	public static void main(String[] args){
 		DBHandler db = new DBHandler();
-		// db.returnInfo("20171007_220733.jpg");
-		// System.out.println(db.classifyPhoto("20171007_220739.jpg"));
 		db.returnInfo("20171007_220733.jpg");
 
 	}
 
 	public void loadKey(){
-//<<<<<<< HEAD
-		/*try {
-=======
-		try {
->>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
-			FileReader fileReader = new FileReader("KEYFILE.txt");
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			WatsonKey = bufferedReader.readLine();
-			System.out.println(WatsonKey);
-			bufferedReader.close();
-		} catch (FileNotFoundException ex){
-			System.out.println("Key missing");
-			System.exit(1);
-		} catch (IOException ex){
-			System.out.println("Key missing");
-			System.exit(1);
-<<<<<<< HEAD
-		}*/
 		WatsonKey = "4681c8c52739fba90f6b6266093c3228a7b0fde8";
+		WatsonKey2 = "f0d276084588faceb4cf5735156d43c9767aebba";
 	}
 
 	public ArrayList<String> returnInfo(String filename){
-//=======
 		loadKey();
 		return findMedicalInfo(classifyPhoto(filename));
-//		}
 	}
-/*
-	public String returnInfo(String filename){
->>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
-		//	Load the Watson API key
-		loadKey();
-		return findMedicalInfo(classifyPhoto(filename));
-	}*/
 
 	public String classifyPhoto(String filename){
 		//	Specify post parameters
@@ -78,21 +39,36 @@ public class DBHandler {
 			System.out.println("Error In Post Request.");
 		}
 
-		name = findName(name);
+		name = findName(name, "Chris");
+		if (name.equals("Chris")) return name;
+		String params3[][] = new String[][]{
+			{"version","2016-05-20"},
+			{"owners", "[\"me\",\"IBM\"]"},
+			{"api_key", WatsonKey2}
+			};
+
+		requests r2 = new requests();
+		try {
+			name = r2.send(params2, "https://watson-api-explorer.mybluemix.net/visual-recognition/api/v3/classify", filename);
+		} catch(Exception e){
+			System.out.println("Error In Post Request.");
+		}
+		name = findName(name, "Hari");
+
 		return name;
 
 	}
-//<<<<<<< HEAD
 	public ArrayList<String> findMedicalInfo(String name){
-//=======
-//	public String findMedicalInfo(String name){
-//>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 		String firstName = null;
 		String lastName = null;
 
 		if (name.equals("Chris")){
 			firstName = "Jason";
 			lastName  = "Argonaut";
+		else if (name.equals("Hari")){
+			firstName = "Emily";
+			lastName = "Williams";
+		}
 		// } else if (name.equals("Hari")){
 		// 	firstName = "Emily";
 		// 	lastName = "Williams";
@@ -170,15 +146,10 @@ public class DBHandler {
 		for (int i = 0; i < parsedData.size(); i++){
 			System.out.println(parsedData.get(i));
 		}
-
-//<<<<<<< HEAD
 		return parsedData;
-//=======
-//		return salientData;
-//>>>>>>> eea89aff726d88ebd472e7251faf67189e6e6ff5
 	}
 
-	public static String findName(String s) {
+	public static String findName(String s, String who) {
         // String ans = "";
         Integer i = 1000;
         if(s.indexOf("1.000")<0)
@@ -189,10 +160,10 @@ public class DBHandler {
         }
         if(i>500&&s.indexOf("classname")>=0)
         {
-    		return "Chris";
+    		return who;
     	}
     	else
-    	return "noChris";
+    	return "no"+who;
     }
      public static String findID(String s) {
         String id;
